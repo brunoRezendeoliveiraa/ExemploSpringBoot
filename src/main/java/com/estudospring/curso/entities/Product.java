@@ -1,14 +1,36 @@
 package com.estudospring.curso.entities;
 
+import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
-public class Product {
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
+@Entity
+@Table(name = "tb_products")
+public class Product implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private String description;
 	private Double price;
 	private String imgUrl;
+
+	// Conjunto de categorias
+	@Transient
+	private Set<Category> categories = new HashSet<>();
 
 	public Product() {
 		super();
@@ -61,6 +83,10 @@ public class Product {
 
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
+	}
+
+	public Set<Category> getCategories() {
+		return categories;
 	}
 
 	@Override
