@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.estudospring.curso.entities.Category;
 import com.estudospring.curso.entities.Order;
+import com.estudospring.curso.entities.OrderItem;
 import com.estudospring.curso.entities.Product;
 import com.estudospring.curso.entities.User;
 import com.estudospring.curso.entities.enums.OrderStatus;
 import com.estudospring.curso.repositories.CategoryRepository;
+import com.estudospring.curso.repositories.OrderItemRepository;
 import com.estudospring.curso.repositories.OrderRepository;
 import com.estudospring.curso.repositories.ProductRepository;
 import com.estudospring.curso.repositories.UserRepository;
@@ -28,10 +30,10 @@ public class TestConfig implements CommandLineRunner {
 	private OrderRepository orderRepository;
 	@Autowired
 	private CategoryRepository categoryRepository;
-	
 	@Autowired
 	private ProductRepository productRepository;
-
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
@@ -58,11 +60,18 @@ public class TestConfig implements CommandLineRunner {
 		Order o1 = new Order(null, Instant.parse("2019-06-20T19:53:07Z"), OrderStatus.PAID, u1);
 		Order o2 = new Order(null, Instant.parse("2019-07-21T03:42:10Z"), OrderStatus.DELIVERED, u2);
 		Order o3 = new Order(null, Instant.parse("2019-07-22T15:21:22Z"), OrderStatus.WAITTING_PAYMENT, u3);
+		
+		//Injeção de dependência de pedidos com seu respectivo (status "pago, enviado, aguardando pagamento", produto, quantidade, preço)
+		OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+		OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+		OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
 
 		userRepository.saveAll(Arrays.asList(u1, u2, u3, u4));
 		orderRepository.saveAll(Arrays.asList(o1, o2, o3));
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
 		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
+		orderItemRepository.saveAll(Arrays.asList(oi1,oi2,oi3,oi4));
 		
 		p1.getCategories().add(cat2);
 		p2.getCategories().add(cat1);
