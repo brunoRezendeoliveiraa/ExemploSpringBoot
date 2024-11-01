@@ -40,7 +40,7 @@ public class TestConfig implements CommandLineRunner {
 		// TODO Auto-generated method stub
 
 		// Injeção de dependência do nome dos objetos
-		Category cat1 = new Category(null, "Electronics");
+		/*Category cat1 = new Category(null, "Electronics");
 		Category cat2 = new Category(null, "Books");
 		Category cat3 = new Category(null, "Computers");
 		
@@ -86,7 +86,7 @@ public class TestConfig implements CommandLineRunner {
 		
 		orderRepository.save(o1);
 		
-		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
+		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));*/
 
 	}
 
